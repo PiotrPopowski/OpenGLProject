@@ -1,0 +1,17 @@
+CFLAGS=-Wall -pedantic 
+GLLIBS=-L/usr/X11R6/lib -L/usr/local/lib -lX11 -lXmu -lGL -lGLU -lglut
+
+OBJS=assignment1.o
+BIN=assignment1
+
+ALL: $(BIN)
+
+$(BIN):	$(OBJS)
+	g++ $(CFLAGS) -o $@ $(OBJS) $(GLLIBS)
+
+%.o:	%.c
+	gcc $(CFLAGS) -c $< -o $@
+
+%.o:	%.cpp
+	g++ $(CFLAGS) -c $< -o $@
+
