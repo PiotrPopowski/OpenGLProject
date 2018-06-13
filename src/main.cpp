@@ -386,7 +386,7 @@ bool init(int argc, char *argv[])
 
 	// setup our widnow now
 	cout << "-- Creating window\n";
-    glutCreateWindow("Aquarium Scene 3D");
+    glutCreateWindow("Underwater Environment");
 	glutFullScreen();
 
 	// initialise opengl initial state
