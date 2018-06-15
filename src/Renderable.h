@@ -1,7 +1,7 @@
 /*
 *
 * THIS FILE HAS ALL OF THE HEADER INFORMATION FOR THE RENDERABLE OBJECT
-* AS WELL AS THE CRAB, FISH, OCTOPUS, QUAD AND STARFISH.
+* AS WELL AS THE STONE, FISH, OCTOPUS, QUAD AND STARFISH.
 *
 * THE REASON FOR PUTTING IT ALL HERE IS BECAUSE THE SUBMIT SYSTEM ON THE
 * ITEE SERVERS ONLY ALLOWS TO SUBMIT 15 FILES AND IF I HAD SEPARATE FILES
@@ -15,7 +15,7 @@
 * Renderable Class. This is an abstract class that all of the objects that
 * are attached to the scene inherit from. It provides basic functionality
 * for moving/rotating/scaling objects as well as defining a pure virtual
-* function '_draw()' that must be difined by its children classes which 
+* function '_draw()' that must be difined by its children classes which
 * actually does the drawing of any specific object.
 *
 * Igor Kromin 40125374
@@ -129,13 +129,13 @@ protected:
 
 
 /*
-* Crab class. Draws a pinky coloured crab.
+* STONE class. Draws a pinky coloured STONE.
 *
 * Igor Kromin 40125374
 */
-#ifndef __CRAB_3201
-#define __CRAB_3201
-class Crab : public Renderable
+#ifndef __STONE_3201
+#define __STONE_3201
+class Stone : public Renderable
 {
 private:
 	GLuint dlist;	/// display list
@@ -146,14 +146,13 @@ private:
 	static void drawLeg(GLfloat jointAngle, GLfloat jointOffset);	/// draw leg with an angle specified
 	static void drawLegs(void);	/// draws complete set of legs
 public:
-	Crab();	/// default constructor
-	virtual ~Crab();	/// default destructor
+	Stone();	/// default constructor
+	virtual ~Stone();	/// default destructor
 protected:
-	void _draw(void);	/// draws the crab
-	void _draw_dlist(void);	/// draws the crab's display list
+	void _draw(void);	/// draws the STONE
+	void _draw_dlist(void);	/// draws the STONE's display list
 	void generate(int level, int number);	/// generates the branches
 
-friend class Octopus;	/// so the octopus can use the drawLeg method
 };
 #endif
 
@@ -163,23 +162,8 @@ friend class Octopus;	/// so the octopus can use the drawLeg method
 *
 * Igor Kromin 40125374
 */
-#ifndef __OCTOPUS_3201
-#define __OCTOPUS_3201
-class Octopus : public Renderable
-{
-private:
-	GLfloat legAngle;	/// angle to spin the legs at
-	GLfloat legAngleCutOff;	/// cut of angle for spinning
-	GLfloat legAngleInc;	/// angle spin increment
-	static GLfloat material[4];
-	static GLfloat shininess;
-public:
-	Octopus();	/// default constructor
-	virtual ~Octopus();	/// default destructor
-protected:
-	void _draw(void);	/// draws the Octopus
-};
-#endif
+
+
 
 
 /*

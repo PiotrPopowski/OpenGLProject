@@ -22,7 +22,7 @@
 #include "Renderable.h"
 #include "Camera.h"
 
-#define OBJ_CRAB 0
+#define OBJ_STONE 0
 #define OBJ_OCTOPUS 1
 #define OBJ_STARFISH 2
 #define OBJ_FISH 3
@@ -39,7 +39,7 @@ private:
 	std::list<Renderable*> *elements;	/// list of elements
 	std::list<Renderable*>::iterator iter;	/// iterator for the elements
 
-	/// light 0 data
+											/// light 0 data
 	static GLfloat ambient0[4];
 	static GLfloat diffuse0[4];
 	static GLfloat specular0[4];
@@ -53,7 +53,7 @@ private:
 	static GLfloat direction1[4];
 
 	static GLfloat spotAngle;
-		
+
 public:
 	Camera camera;	/// camera (duh)
 	int objects[5];	/// counter for objects
@@ -63,7 +63,7 @@ public:
 	bool light1On;	/// light 1 on / off
 	bool fogMode;	/// fog on / off
 	bool lightMode;	/// lighting on / off
-	
+
 	static int width;	/// the width of the window
 	static int height;	/// the height of the window
 

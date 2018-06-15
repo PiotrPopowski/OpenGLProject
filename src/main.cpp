@@ -17,8 +17,7 @@
 #include "Renderable.h"
 #include "Textures.h"
 
-#define OBJ_CRAB 0
-#define OBJ_OCTOPUS 1
+#define OBJ_STONE 0
 #define OBJ_STARFISH 2
 #define OBJ_FISH 3
 #define OBJ_PLANT 4
@@ -68,9 +67,9 @@ int main(int argc, char *argv[])
 
 	// create all quads for the floor of the aquarium
 	Quad *quad;
-	for (GLfloat i = -90.5; i <= 90.5; i++)
+	for (GLfloat i = -9.5; i <= 9.5; i++)
 	{
-		for (GLfloat j = -90.5; j <= 90.5; j++)
+		for (GLfloat j = -9.5; j <= 9.5; j++)
 		{
 			quad = new Quad();
 			quad->ry = 0.0f;	// we don't want random rotation
@@ -90,14 +89,18 @@ int main(int argc, char *argv[])
 	keyboardInput((unsigned char)'F', 0, 0);
 
 	// add some stuff to the scene
-	for (int o = 0; o < 30; o++)
+	for (int o = 0; o < 7; o++)
 	{
-		addObject(OBJ_CRAB);
+		addObject(OBJ_STONE);
+		addObject(OBJ_STONE);
+		addObject(OBJ_STONE);
+		addObject(OBJ_STONE);
+		addObject(OBJ_STONE);
+
 		addObject(OBJ_STARFISH);
 		addObject(OBJ_FISH);
 		addObject(OBJ_FISH);
 		addObject(OBJ_FISH);
-		addObject(OBJ_OCTOPUS);
 		addObject(OBJ_PLANT);
 		addObject(OBJ_PLANT);
 		addObject(OBJ_PLANT);
@@ -106,7 +109,7 @@ int main(int argc, char *argv[])
 	// start the timer and enter the mail GLUT loop
 	glutTimerFunc(50, animator, 0);
 	glutMainLoop();
-	
+
 	return 0;
 }
 
@@ -138,7 +141,7 @@ void resizeWindow(int w, int h)
 /// Handles keyboard input for normal keys
 void keyboardInput(unsigned char key, int x, int y)
 {
-	switch(key) {
+	switch (key) {
 	case 27:	// ESC key (Quits)
 		exit(0);
 		break;
@@ -166,7 +169,8 @@ void keyboardInput(unsigned char key, int x, int y)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glDisable(GL_BLEND);
 			glDisable(GL_LINE_SMOOTH);
-		} else {
+		}
+		else {
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			glEnable(GL_BLEND);
 			glEnable(GL_LINE_SMOOTH);
@@ -194,13 +198,13 @@ void keyboardInput(unsigned char key, int x, int y)
 		break;
 
 	case '0':	// toggles light 0 on / off
-		scene->light0On = ! scene->light0On;
+		scene->light0On = !scene->light0On;
 		if (scene->light0On) glEnable(GL_LIGHT0);
 		else glDisable(GL_LIGHT0);
 		break;
 
 	case '1':	// toggles light 1 on / off
-		scene->light1On = ! scene->light1On;
+		scene->light1On = !scene->light1On;
 		if (scene->light1On) glEnable(GL_LIGHT1);
 		else glDisable(GL_LIGHT1);
 		break;
@@ -218,11 +222,7 @@ void keyboardInput(int key, int x, int y)
 		break;
 
 	case GLUT_KEY_F2:
-		addObject(OBJ_CRAB);
-		break;
-
-	case GLUT_KEY_F3:
-		addObject(OBJ_OCTOPUS);
+		addObject(OBJ_STONE);
 		break;
 
 	case GLUT_KEY_F4:
@@ -244,7 +244,6 @@ void keyboardInput(int key, int x, int y)
 	case GLUT_KEY_RIGHT:
 		scene->camera.clockwise();
 		break;
-
 	case GLUT_KEY_UP:
 		scene->camera.inc();
 		break;
@@ -277,8 +276,8 @@ void addObject(int type)
 	*/
 
 	// first pick the x and z locations
-	GLfloat x = Renderable::getRand(-250.0f, 500.0f);
-	GLfloat z = Renderable::getRand(-250.0f, 500.0f);
+	GLfloat x = Renderable::getRand(-25.0f, 50.0f);
+	GLfloat z = Renderable::getRand(-25.0f, 50.0f);
 
 	// the height is a bit different, differnt objects need a different
 	// offset above the sea floor
@@ -292,17 +291,13 @@ void addObject(int type)
 		y = -0.3f;
 		object = new StarFish();
 		break;
-	case OBJ_CRAB:
+	case OBJ_STONE:
 		y = -0.4f;
-		object = new Crab();
+		object = new Stone();
 		break;
 	case OBJ_FISH:
-		y = Renderable::getRand(-260.0f, 250.0f);
+		y = Renderable::getRand(-26.0f, 25.0f);
 		object = new Fish();
-		break;
-	case OBJ_OCTOPUS:
-		y = Renderable::getRand(-270.0f, 250.0f);
-		object = new Octopus();
 		break;
 	case OBJ_PLANT:
 		y = 0.0f;
@@ -336,7 +331,7 @@ void setupViewVolume(void)
 		// directions to look right
 		if (aspect >= 1.0f)
 			glOrtho(-40.0f * aspect, 40.0f * aspect, -40.0f, 40.0f, 1.0f, 250.0f);
-		else 
+		else
 			glOrtho(-40.0f, 40.0f, -40.0f * iaspect, 40.0f * iaspect, 1.0f, 250.0f);
 	}
 
@@ -382,11 +377,11 @@ bool init(int argc, char *argv[])
 	// initialise glut
 	cout << "-- Initialising GLUT\n";
 	glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
 	// setup our widnow now
 	cout << "-- Creating window\n";
-    glutCreateWindow("Aquarium Scene 3D");
+	glutCreateWindow("Aquarium Scene 3D");
 	glutFullScreen();
 
 	// initialise opengl initial state
@@ -416,17 +411,17 @@ void setupGL(void)
 	// setup  fog, but disable for now
 	glDisable(GL_FOG);
 	glFogi(GL_FOG_MODE, GL_EXP);
-	GLfloat fogColor[4] = {0.0f, 0.5f, 0.55f, 1.0f};
+	GLfloat fogColor[4] = { 0.0f, 0.5f, 0.55f, 1.0f };
 	glFogfv(GL_FOG_COLOR, fogColor);
 	glFogf(GL_FOG_DENSITY, 0.0075);
 	glHint(GL_FOG_HINT, GL_NICEST);
-	
+
 	// enable normalising of normals after scaling
 	glEnable(GL_NORMALIZE);
 
 	// setup lighting, but disable for nwo
 	glDisable(GL_LIGHTING);
-	GLfloat ambient[] = {0.1f, 0.1f, 0.1f, 1.0};
+	GLfloat ambient[] = { 0.1f, 0.1f, 0.1f, 1.0 };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
 

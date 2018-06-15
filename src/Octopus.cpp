@@ -59,12 +59,12 @@ void Octopus::_draw(void)
 
 		glRotatef(i * step, 0.0f, 1.0f, 0.0f);
 		glTranslatef(0.1f, 0.5f + (legAngle / legAngleCutOff) / 7.0f, 0.0f);
-		Crab::drawLeg();
+		//Crab::drawLeg();
 
 		glTranslatef(0.2f, 0.725f, 0.0f);
 		glRotatef(120.0f, 0.0f, 0.0f, 1.0f);
 		
-		Crab::drawLeg();
+		//Crab::drawLeg();
 
 		glPopMatrix();
 	}
