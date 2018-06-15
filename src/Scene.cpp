@@ -43,7 +43,7 @@ Scene::Scene()
 	elements = new std::list<Renderable*>;	// create our queue
 	showMenu = true;	// menu is on
 	light0On = false;	// light 0 is off
-	light1On = false;	// light 1 is off
+	light1On = true;	// light 1 is on
 	fogMode = false;	// fog is off
 	lightMode = false;	// lighting is off
 

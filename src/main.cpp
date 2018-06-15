@@ -68,9 +68,9 @@ int main(int argc, char *argv[])
 
 	// create all quads for the floor of the aquarium
 	Quad *quad;
-	for (GLfloat i = -9.5; i <= 9.5; i++)
+	for (GLfloat i = -90.5; i <= 90.5; i++)
 	{
-		for (GLfloat j = -9.5; j <= 9.5; j++)
+		for (GLfloat j = -90.5; j <= 90.5; j++)
 		{
 			quad = new Quad();
 			quad->ry = 0.0f;	// we don't want random rotation
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 	keyboardInput((unsigned char)'F', 0, 0);
 
 	// add some stuff to the scene
-	for (int o = 0; o < 3; o++)
+	for (int o = 0; o < 30; o++)
 	{
 		addObject(OBJ_CRAB);
 		addObject(OBJ_STARFISH);
@@ -98,6 +98,8 @@ int main(int argc, char *argv[])
 		addObject(OBJ_FISH);
 		addObject(OBJ_FISH);
 		addObject(OBJ_OCTOPUS);
+		addObject(OBJ_PLANT);
+		addObject(OBJ_PLANT);
 		addObject(OBJ_PLANT);
 	}
 
@@ -275,8 +277,8 @@ void addObject(int type)
 	*/
 
 	// first pick the x and z locations
-	GLfloat x = Renderable::getRand(-25.0f, 50.0f);
-	GLfloat z = Renderable::getRand(-25.0f, 50.0f);
+	GLfloat x = Renderable::getRand(-250.0f, 500.0f);
+	GLfloat z = Renderable::getRand(-250.0f, 500.0f);
 
 	// the height is a bit different, differnt objects need a different
 	// offset above the sea floor
@@ -295,11 +297,11 @@ void addObject(int type)
 		object = new Crab();
 		break;
 	case OBJ_FISH:
-		y = Renderable::getRand(-26.0f, 25.0f);
+		y = Renderable::getRand(-260.0f, 250.0f);
 		object = new Fish();
 		break;
 	case OBJ_OCTOPUS:
-		y = Renderable::getRand(-27.0f, 25.0f);
+		y = Renderable::getRand(-270.0f, 250.0f);
 		object = new Octopus();
 		break;
 	case OBJ_PLANT:
