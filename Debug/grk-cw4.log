@@ -1,7 +1,0 @@
-﻿  main.cpp
-c:\users\win10\desktop\grafika projekt\openglproject\src\main.cpp(51): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
-c:\users\win10\desktop\grafika projekt\openglproject\src\main.cpp(407): warning C4305: "argument": obcięcie z "double" do "GLclampf"
-c:\users\win10\desktop\grafika projekt\openglproject\src\main.cpp(421): warning C4305: "argument": obcięcie z "double" do "GLfloat"
-Camera.obj : warning LNK4075: zignorowano opcję „/EDITANDCONTINUE” z powodu określenia opcji „/INCREMENTAL:NO”
-  grk-cw4.vcxproj -> C:\Users\Win10\Desktop\Grafika projekt\OpenGLProject\Debug\grk-cw4.exe
-  grk-cw4.vcxproj -> C:\Users\Win10\Desktop\Grafika projekt\OpenGLProject\Debug\grk-cw4.pdb (Partial PDB)

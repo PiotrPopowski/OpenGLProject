@@ -6,7 +6,6 @@
 * of objects to draw, the class sets up the environment and calls the
 * draw method on each object in the queue.
 *
-* Igor Kromin 40125374
 */
 
 #include "Scene.h"
@@ -16,21 +15,21 @@ using namespace std;
 int Scene::width;	/// the width of the window
 int Scene::height;	/// the height of the window
 
-// light 0 colours
-GLfloat Scene::ambient0[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
-GLfloat Scene::diffuse0[4]	= {0.4f, 0.4f, 0.4f, 1.01f};
-GLfloat Scene::specular0[4]	= {0.2f, 0.2f, 0.2f, 1.0f};
-GLfloat Scene::position0[4]	= {0.0f, -1.0f, 0.0f, 0.0f};
+					// light 0 colours
+GLfloat Scene::ambient0[4] = { 0.1f, 0.1f, 0.1f, 1.0f };
+GLfloat Scene::diffuse0[4] = { 0.4f, 0.4f, 0.4f, 1.01f };
+GLfloat Scene::specular0[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+GLfloat Scene::position0[4] = { 0.0f, -1.0f, 0.0f, 0.0f };
 
 // light 1 colours
-GLfloat Scene::ambient1[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
-GLfloat Scene::diffuse1[4]	= {0.45f, 0.45f, 0.45f, 1.0f};
-GLfloat Scene::specular1[4]	= {0.5f, 0.5f, 0.5f, 1.0f};
-GLfloat Scene::position1[4]	= {0.0f, 0.0f, 1.0f, 1.0f};
-GLfloat Scene::direction1[4]	= {0.0f, 0.0f, -1.0f};
+GLfloat Scene::ambient1[4] = { 0.1f, 0.1f, 0.1f, 1.0f };
+GLfloat Scene::diffuse1[4] = { 0.45f, 0.45f, 0.45f, 1.0f };
+GLfloat Scene::specular1[4] = { 0.5f, 0.5f, 0.5f, 1.0f };
+GLfloat Scene::position1[4] = { 0.0f, 0.0f, 1.0f, 1.0f };
+GLfloat Scene::direction1[4] = { 0.0f, 0.0f, -1.0f };
 
 // spotlight cut-off angle
-GLfloat Scene::spotAngle	= 15.f;
+GLfloat Scene::spotAngle = 15.f;
 
 
 /// Default Constructor. Initialises defaults.
@@ -47,10 +46,9 @@ Scene::Scene()
 	fogMode = false;	// fog is off
 	lightMode = false;	// lighting is off
 
-	// set all counters to zero
-	objects[OBJ_CRAB] = 0;
+						// set all counters to zero
+	objects[OBJ_STONE] = 0;
 	objects[OBJ_STARFISH] = 0;
-	objects[OBJ_OCTOPUS] = 0;
 	objects[OBJ_FISH] = 0;
 	objects[OBJ_PLANT] = 0;
 
@@ -176,33 +174,19 @@ void Scene::drawHUD(void)
 	glColor3f(1.0f, 1.0f, 1.0f);
 
 	// print all of the stats
-	printGL(0.0f, 0.0f, 0.0f, "Crabs:    ", objects[OBJ_CRAB]);
-	printGL(1.5f, 0.0f, 0.0f, "Starfish: ", objects[OBJ_STARFISH]);
-	printGL(3.0f, 0.0f, 0.0f, "Octopi:   ", objects[OBJ_OCTOPUS]);
-	printGL(4.5f, 0.0f, 0.0f, "Fish:     ", objects[OBJ_FISH]);
-	printGL(6.0f, 0.0f, 0.0f, "Plants:   ", objects[OBJ_PLANT]);
+	printGL(0.0f, 0.0f, 0.0f, "Kamienie:    ", objects[OBJ_STONE]);
+	printGL(1.5f, 0.0f, 0.0f, "Rozgwiazdy: ", objects[OBJ_STARFISH]);
+	printGL(4.5f, 0.0f, 0.0f, "Ryby:     ", objects[OBJ_FISH]);
+	printGL(6.0f, 0.0f, 0.0f, "Rosliny:   ", objects[OBJ_PLANT]);
 
 	/*
 	* the printGL() function expects the string to be 30 characters in length
 	* so we have to pad each string with white space so that weird characters
 	* do not appear
 	*/
-	
-	// print lighting mode calculations
-	if (lightMode) printGL(0.0f, 0.3f, -1.0f, "Lighting Calculations: On     ");
-	else printGL(0.0f, 0.3f, -1.0f, "Lighting Calculations: Off    ");
 
-	// print light 0 status
-	if (light0On) printGL(0.0f, 0.6f, -1.0f, "Overhead Light: On            ");
-	else printGL(0.0f, 0.6f, -1.0f, "Overhead Light: Off           ");
 
-	// print light 1 status
-	if (light1On) printGL(0.0f, 0.9f, -1.0f, "Miner's Hat Light: On         ");
-	else printGL(0.0f, 0.9f, -1.0f, "Miner's Hat Light: Off        ");
 
-	// print fog status
-	if (fogMode) printGL(0.0f, 1.2f, -1.0f, "Fog: On                       ");
-	else printGL(0.0f, 1.2f, -1.0f, "Fog: Off                      ");
 
 	// print the menu if needed
 	if (showMenu)
@@ -233,7 +217,7 @@ void Scene::printGL(GLfloat x, GLfloat y, GLfloat z, const char *str, int count)
 	for (int i = 0; i < 30; ++i)
 		buffer[i] = ' ';
 
-	sprintf(buffer,"%s %i", str, count);
+	sprintf(buffer, "%s %i", str, count);
 	printGL(x, y, z, buffer);
 }
 
@@ -255,32 +239,27 @@ void Scene::printGL(GLfloat x, GLfloat y, GLfloat z, const char *str)
 void Scene::printMenu(void)
 {
 	glColor3f(0.0f, 0.0f, 0.0f);
-	printGL(0.0f, 1.7f, -1.0f, "---[ Help Screen ]------------");
+	printGL(0.0f, 1.7f, -1.0f, "---[ Klawiszologia ]------------");
 
 	glColor3f(1.0f, 1.0f, 0.0f);
-	printGL(0.0f, 2.0f, -1.0f, "F1    - Toggle Help Screen      ");
-	printGL(0.0f, 2.3f, -1.0f, "F2    - Add a crab              ");
-	printGL(0.0f, 2.6f, -1.0f, "F3    - Add an octopus          ");
-	printGL(0.0f, 2.9f, -1.0f, "F4    - Add a starfish          ");
-	printGL(0.0f, 3.2f, -1.0f, "F5    - Add a fish              ");
-	printGL(0.0f, 3.5f, -1.0f, "F6    - Add a plant             ");
+	printGL(0.0f, 2.3f, -1.0f, "F2    - Wygeneruj kamien             ");
+	printGL(0.0f, 2.6f, -1.0f, "F4    - Wygeneruj rozgwiazde          ");
+	printGL(0.0f, 3.9f, -1.0f, "F5    - Wygeneruj rybe              ");
+	printGL(0.0f, 4.2f, -1.0f, "F6    - Wygeneruj rosline             ");
 
 	glColor3f(0.5f, 1.0f, 0.0f);
-	printGL(0.0f, 3.8f, -1.0f, "F/f   - Toggle fog on/off       ");
-	printGL(0.0f, 4.1f, -1.0f, "W/w   - Toggle wireframe on/off ");
-	printGL(0.0f, 4.4f, -1.0f, "L/l   - Toggle lighting on/off  ");
-	printGL(0.0f, 4.7f, -1.0f, "1/0   - Toggle light 1/0 on/off ");
+	printGL(0.0f, 5.0f, -1.0f, "Underwater Scene by:             ");
+	printGL(0.0f, 5.3f, -1.0f, "Przemyslaw Plociennik();         ");
+	printGL(0.0f, 5.6f, -1.0f, "and Piotr Popowski();             ");
 
 	glColor3f(0.0f, 1.0f, 0.0f);
-	printGL(0.0f, 5.0f, -1.0f, "A/Z   - Inc/Dec elevation angl  ");
-	printGL(0.0f, 5.3f, -1.0f, "UP    - Dec distance to origin  ");
-	printGL(0.0f, 5.6f, -1.0f, "DOWN  - Inc distance to origin  ");
-	printGL(0.0f, 5.9f, -1.0f, "LEFT  - Rotate clockwise        ");
-	printGL(0.0f, 6.2f, -1.0f, "RIGHT - Rotate anticlockwise    ");
+	printGL(0.0f, 5.9f, -1.0f, "A/Z   - +/- kat widzenia          ");
+	printGL(0.0f, 6.2f, -1.0f, "GORA    - Zbliz                    ");
+	printGL(0.0f, 6.5f, -1.0f, "DOL  - Oddal                       ");
+	printGL(0.0f, 6.8f, -1.0f, "LEWO  - Obroc w prawo               ");
+	printGL(0.0f, 7.1f, -1.0f, "PRAWO - Obroc w lewo                 ");
 
 	glColor3f(0.0f, 0.0f, 1.0f);
-	printGL(0.0f, 6.5f, -1.0f, "ESC   - Exit                    ");
+	printGL(0.0f, 7.8f, -1.0f, "ESC   - Wyjscie                    ");
 
-	glColor3f(0.0f, 0.0f, 0.0f);
-	printGL(0.0f, 6.8f, -1.0f, "---[Igor Kromin 40125374 ]----");
 }

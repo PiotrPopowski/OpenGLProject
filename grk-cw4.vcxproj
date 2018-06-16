@@ -12,10 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\Crab.cpp" />
+    <ClCompile Include="src\Stone.cpp" />
     <ClCompile Include="src\Fish.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Octopus.cpp" />
     <ClCompile Include="src\Plant.cpp" />
     <ClCompile Include="src\Quad.cpp" />
     <ClCompile Include="src\Renderable.cpp" />
