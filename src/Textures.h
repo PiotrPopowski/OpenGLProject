@@ -1,17 +1,10 @@
-/*
-* This file has all of the textures the aquarium uses.
-*
-* Igor Kromin 40125374
-*/
-
 #ifndef __TEXTURES_3201
 #define __TEXTURES_3201
 
 static GLubyte water[64 * 64 * 4];
 
 /*
-* The sand texture was downloaded from the COMP3201 web site
-* from the following URL;
+* Tekstura piasku pobrana z:
 * http://www.itee.uq.edu.au/~comp3201/sandtex.h
 */
 static const struct {

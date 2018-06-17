@@ -1,23 +1,17 @@
-/*
-* Fish class. Draws a fish.
-*
-* Igor Kromin 40125374
-*/
-
 #include "Renderable.h"
 
 using namespace std;
 
-// setup the static variables
+
 GLfloat Fish::material[4] = {1.f, 1.f, 1.f, 1.f};
 GLfloat Fish::shininess = 120.f;
 
 
 Fish::Fish()
 {
-	cout << "-- Creating fish\n";
+	cout << "-- Generowanie ryby\n";
 	
-	// angles and cut offs for tail animation
+	//granice dla animacji ogona
 	tailAngle = 0.0f;
 	tailAngleCutOff = 20.0f;
 	tailAngleInc = 1.0f;
@@ -26,83 +20,78 @@ Fish::Fish()
 
 Fish::~Fish()
 {
-	cout << "++ Destructing fish\n";
+	cout << "++ Usuwanie ryby\n";
 }
 
-/// Draws the full fish
 void Fish::_draw(void)
 {
-	// work out how much to advance the fish by relative to its orientation
 	GLfloat xInc = cos(ry * (3.14156 ) / 180) / 10.0f;
 	GLfloat zInc = sin(ry * (3.14156 ) / 180) / 10.0f;
 
-	// the floor is 70.0 x 70.0, but i want to keep the fish inside a
-	// 65.0 x 65.0 area, so work out the circular boundaries if the fish goes
-	// outside of this area
+
 	if (x < -35) x += 65.f;
 	if (x > 35) x -= 65.f;
 	if (z < -35) z += 65.f;
 	if (z > 35) z -= 65.f;
 
-	// increment the fish position
 	x -= xInc;
 	z += zInc;
 
-	// set up the material properties (only front needs to be set)
+	// konfiguracja materialu
 	glMaterialfv(GL_FRONT, GL_AMBIENT, material);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, material);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, material);
 	glMaterialf(GL_FRONT, GL_SHININESS, shininess);
 
-	// enable texturing
+	// wlaczenie teksturowania
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, FISH_TEXTURE);
 
-	// set up texture parameters
+	// konfiguracja parametrow tekstur
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-	// set up vertex arrays
+	// ustawianie macierzy
 	glVertexPointer(3, GL_FLOAT, 0, vertex);
 	glNormalPointer(GL_FLOAT, 0, normal);
 	glTexCoordPointer(2, GL_FLOAT, 0, texels);
 	glColorPointer(3, GL_FLOAT, 0, colours);
 
-	// enable vertex arrays
+	// wlaczanie macierzy
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	// draw first side of the fish
+	// rysowanie pierwszej czesci ryby
 	glFrontFace(GL_CCW);
 	drawSide();
 	
-	// draw second side of the fish
+	// rysowanie drugiej czesci ryby
 	glScalef(1.0f, 1.0f, -1.0f);
 	glFrontFace(GL_CW);
 	drawSide();
 
-	// work out new fish tail position
+	// nowa pozycja ogona
 	GLfloat pt = sin(tailAngle * 3.14159 / 180);
 	tailAngle += tailAngleInc;
 	if (tailAngle < -tailAngleCutOff || tailAngle > tailAngleCutOff)
 		tailAngleInc *= -1;
 	
-	// draw one side of flexible part of the tail
+	// rysowanie pierwszej czesci ruchomego fragmentu ogona
 	vertex[143] = vertex[152] = vertex[149] = vertex[158] = vertex[167] = pt;
 	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
 	glScalef(1.0f, 1.0f, -1.0f);
 
-	// draw second side of flexible part of the tail
+	// rysowanie drugiej czesci ruchomego fragmentu ogona
 	glFrontFace(GL_CCW);
 	vertex[143] = vertex[152] = vertex[149] = vertex[158] = vertex[167] = -pt;
 	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
 	
-	// disable all vertex arrays and texturing
+	// wylaczanie macierzy i teksturowania
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
@@ -111,7 +100,7 @@ void Fish::_draw(void)
 }
 
 
-/// Draws a side of the fish
+/// rysowanie boku ryby
 void Fish::drawSide(void)
 {
 	glDrawArrays(GL_TRIANGLES, 0, 3 * 2);

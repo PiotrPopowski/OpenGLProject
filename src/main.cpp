@@ -1,14 +1,3 @@
-/*
-* Main file that contains the main() method. Takes care of
-* instantiating the Scene class.
-*
-* This file has all of the callback functions that GLUT calls.
-*
-* The Initialiser class is defined here too. It had to be inlined
-* here to save on the number of files to upload.
-*
-* Igor Kromin 40125374
-*/
 
 #include <freeglut.h>
 #include <iostream>
@@ -22,57 +11,55 @@
 #define OBJ_FISH 3
 #define OBJ_PLANT 4
 
-static Scene *scene;	/// the scene we render
-static bool wireMode = false;	/// wireframe mode on / off
-static bool flatShading = false;	/// flat shading on / off
+static Scene *scene;	/// scena
+static bool wireMode = false;	
+static bool flatShading = false;	
 
-static bool init(int argc, char *argv[]);	/// initialises the application
-static void setupGL(void);	/// initialises OpenGL
-static void animator(int type);	/// animates the aquarium
-static void resizeWindow(int w, int h);	/// resizes the window
-static void keyboardInput(unsigned char key, int x, int y);	/// handles keyboard input
-static void keyboardInput(int key, int x, int y);	/// handles keyboard input (special)
-static void drawScene(void);	/// draws the scene
-static void addObject(int type);	/// adds an object to the scene
-static void setupViewVolume(void);	/// sets up the viewing volume
-static void getTextures(void);	/// initiates all textures
-static void getSandTexture(void);	/// loads the sand texture
-static void getFishTexture(void);	/// loads the fish texture
+static bool init(int argc, char *argv[]);	
+static void setupGL(void);	
+static void animator(int type);	
+static void resizeWindow(int w, int h);	
+static void keyboardInput(unsigned char key, int x, int y);	
+static void keyboardInput(int key, int x, int y);	
+static void drawScene(void);	
+static void addObject(int type);	
+static void setupViewVolume(void);	
+static void getTextures(void);	
+static void getSandTexture(void);	
+static void getFishTexture(void);	
 
 
 using namespace std;
 
-/// Program starts here
 int main(int argc, char *argv[])
 {
-	cout << "-- Program starting\n";
+	cout << "-- Rozpoczynam program\n";
 
 	srand(time(NULL));
 	init(argc, argv);
 
-	// register our call-back functions
-	cout << "-- Registering callbacks\n";
+	cout << "-- Rejestruje odwolania\n";
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(resizeWindow);
 	glutKeyboardFunc(keyboardInput);
 	glutSpecialFunc(keyboardInput);
 
-	// generate/load textures
-	cout << "-- Generating/Loading Textures\n";
+	
+	cout << "-- Generuje i laduje tekstury\n";
 	getTextures();
 
-	// create the scene and set perspective projection as default
+	// tworzenie sceny
 	scene = new Scene();
 	scene->perspectiveMode = true;
 
-	// create all quads for the floor of the aquarium
+	// tworzenie dna
 	Quad *quad;
 	for (GLfloat i = -9.5; i <= 9.5; i++)
 	{
 		for (GLfloat j = -9.5; j <= 9.5; j++)
 		{
 			quad = new Quad();
-			quad->ry = 0.0f;	// we don't want random rotation
+			quad->ry = 0.0f;	
 			quad->rx = 90.0f;
 			quad->x = 3.5f * i;
 			quad->z = 3.5f * j;
@@ -81,14 +68,25 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	// 'fake' keys being pressed to enable the state to
-	// setup lighting and fog
-	keyboardInput((unsigned char)'L', 0, 0);
-	keyboardInput((unsigned char)'0', 0, 0);
-	keyboardInput((unsigned char)'1', 0, 0);
-	keyboardInput((unsigned char)'F', 0, 0);
+	
+	//oswietlenie, mgla
+	scene->lightMode = !scene->lightMode;
+	if (scene->lightMode) glEnable(GL_LIGHTING);
+	else glDisable(GL_LIGHTING);	
 
-	// add some stuff to the scene
+	scene->light0On = !scene->light0On;
+	if (scene->light0On) glEnable(GL_LIGHT0);
+	else glDisable(GL_LIGHT0);
+
+	scene->light1On = !scene->light1On;
+	if (scene->light1On) glEnable(GL_LIGHT1);
+	else glDisable(GL_LIGHT1);
+
+	scene->fogMode = !scene->fogMode;
+	if (scene->fogMode) glEnable(GL_FOG);
+	else glDisable(GL_FOG);
+
+	// dodawanie obiektow
 	for (int o = 0; o < 7; o++)
 	{
 		addObject(OBJ_STONE);
@@ -104,7 +102,7 @@ int main(int argc, char *argv[])
 		addObject(OBJ_PLANT);
 	}
 
-	// start the timer and enter the mail GLUT loop
+	// start animacji (rozpoczecie "wiecznej" petli programu
 	glutTimerFunc(50, animator, 0);
 	glutMainLoop();
 
@@ -112,10 +110,7 @@ int main(int argc, char *argv[])
 }
 
 
-/// Animates the aquarium. This function just renders the scene every
-/// 25 milliseconds. A timer is used to give smooth animation at the
-/// same rate on differnt computers. idle function draws the scenes
-/// at way too different speeds on different computers
+/// start animacji (generuje klatke co 25 milisekund)
 void animator(int type)
 {
 	glutPostRedisplay();
@@ -123,12 +118,11 @@ void animator(int type)
 }
 
 
-/// Resizes the current viewport to the full window size
+/// resizuje okno do full screena
 void resizeWindow(int w, int h)
 {
 	glViewport(0, 0, w, h);
 
-	// update the width and height we are using
 	scene->width = w;
 	scene->height = h;
 
@@ -136,15 +130,14 @@ void resizeWindow(int w, int h)
 }
 
 
-/// Handles keyboard input for normal keys
 void keyboardInput(unsigned char key, int x, int y)
 {
 	switch (key) {
-	case 27:	// ESC key (Quits)
+	case 27:	
 		exit(0);
 		break;
 
-	case ' ':	// SPACE key (Toggle flat/smooth shading)
+	case ' ':	
 		flatShading = !flatShading;
 		if (flatShading) glShadeModel(GL_FLAT);
 		else glShadeModel(GL_SMOOTH);
@@ -161,7 +154,7 @@ void keyboardInput(unsigned char key, int x, int y)
 		break;
 
 	case 'W':
-	case 'w':	// toggles wireframe mode on/off
+	case 'w':	
 		wireMode = !wireMode;
 		if (!wireMode) {
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -174,43 +167,11 @@ void keyboardInput(unsigned char key, int x, int y)
 			glEnable(GL_LINE_SMOOTH);
 		}
 		break;
-
-	case 'P':
-	case 'p':	// toglles between perspective/orthographic projections
-		scene->perspectiveMode = !scene->perspectiveMode;
-		setupViewVolume();
-		break;
-
-	case 'f':
-	case 'F':	// toggles fog on/off
-		scene->fogMode = !scene->fogMode;
-		if (scene->fogMode) glEnable(GL_FOG);
-		else glDisable(GL_FOG);
-		break;
-
-	case 'l':
-	case 'L':	// toggles lighting calculations on/off
-		scene->lightMode = !scene->lightMode;
-		if (scene->lightMode) glEnable(GL_LIGHTING);
-		else glDisable(GL_LIGHTING);
-		break;
-
-	case '0':	// toggles light 0 on / off
-		scene->light0On = !scene->light0On;
-		if (scene->light0On) glEnable(GL_LIGHT0);
-		else glDisable(GL_LIGHT0);
-		break;
-
-	case '1':	// toggles light 1 on / off
-		scene->light1On = !scene->light1On;
-		if (scene->light1On) glEnable(GL_LIGHT1);
-		else glDisable(GL_LIGHT1);
-		break;
 	}
 }
 
 
-/// Processes special keyboard keys like F1, F2, etc
+
 void keyboardInput(int key, int x, int y)
 {
 	switch (key)
@@ -253,32 +214,23 @@ void keyboardInput(int key, int x, int y)
 }
 
 
-/// Draws the scene to the window
-/*
-* This function calls the render method of the current scene
-* to render the contents of the scene onto the window created.
-*/
+
+
 void drawScene()
 {
 	scene->render();
 }
 
 
-/// Adds an object to the scene
+
 void addObject(int type)
 {
-	/*
-	* we know our floor is drawn square at the origin, so we base
-	* our random positions to lie within the the ocean floor. additionally
-	* we extend the height of the volume by 10 units.
-	*/
+	///generuje koordynaty wewnatrz kwadratu (dno) i dodaje tam obiekty
 
-	// first pick the x and z locations
 	GLfloat x = Renderable::getRand(-25.0f, 50.0f);
 	GLfloat z = Renderable::getRand(-25.0f, 50.0f);
 
-	// the height is a bit different, differnt objects need a different
-	// offset above the sea floor
+
 	GLfloat y;
 
 	Renderable *object;
@@ -304,29 +256,24 @@ void addObject(int type)
 		break;
 	}
 
-	object->move(x, y, z);	// set objects new position
-	scene->add(object);	// adds object to rendering queue
-	scene->objects[type]++;	// increments the count of this type of object
+	object->move(x, y, z);	// przesuniecie obiektu
+	scene->add(object);	// dodanie obiektu do kolejki renderowania
+	scene->objects[type]++;	// zwiekszenie licznika obiektow
 }
 
 
-/// Sets up the viewing volume to be used
 void setupViewVolume(void)
 {
-	// work out the aspect ratio for width and height
 	GLfloat aspect = (GLfloat)scene->width / (GLfloat)scene->height;
 	GLfloat iaspect = (GLfloat)scene->height / (GLfloat)scene->width;
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	// setup new viewing volume based on the aspect ratio and projection type
 	if (scene->perspectiveMode == true)
 		gluPerspective(-45.0f, aspect, 1.0f, 250.0f);
 	else {
-		// orthographic mode correction depends on whether the ratio is greater
-		// or less than 1.0 as the viewport must be scaled in different
-		// directions to look right
+	
 		if (aspect >= 1.0f)
 			glOrtho(-40.0f * aspect, 40.0f * aspect, -40.0f, 40.0f, 1.0f, 250.0f);
 		else
@@ -337,7 +284,7 @@ void setupViewVolume(void)
 }
 
 
-/// Initiates all textures
+/// inicjacja tekstur
 void getTextures(void)
 {
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -348,7 +295,7 @@ void getTextures(void)
 }
 
 
-/// Loads the sand texture
+/// wczytanie tekstury piasku
 void getSandTexture(void)
 {
 	glBindTexture(GL_TEXTURE_2D, Renderable::textures[0]);
@@ -356,7 +303,7 @@ void getSandTexture(void)
 }
 
 
-/// Loads the fish texture
+/// wczytanie tekstury ryb
 void getFishTexture(void)
 {
 	glBindTexture(GL_TEXTURE_2D, Renderable::textures[1]);
@@ -364,78 +311,67 @@ void getFishTexture(void)
 }
 
 
-/// Init GLUT and OpenGL
-/*
-* Creates a window that is half the size of the screen
-* and then calls setupGL() to setup the initial OpenGL
-* environment.
-*/
+
 bool init(int argc, char *argv[])
 {
-	// initialise glut
-	cout << "-- Initialising GLUT\n";
+	cout << "-- Uruchamianie GLUT\n";
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
-	// setup our widnow now
-	cout << "-- Creating window\n";
+	cout << "-- Tworzenie okna\n";
 	glutCreateWindow("Aquarium Scene 3D");
 	glutFullScreen();
 
-	// initialise opengl initial state
 	setupGL();
 
 	return true;
 }
 
 
-/// Sets up the OpenGL state machine environment
-/// All hints, culling, fog, light models, depth testing, polygon model
-/// and blending are set up here
+/// konfiguracja efektow openGL
+
 void setupGL(void)
 {
-	cout << "-- Setting up OpenGL state\n";
+	cout << "-- Konfiguracja OpenGL\n";
 
-	// blue green background colour
-	glClearColor(0.0, 0.5, 0.55, 1.0);
+	// kolor tla
+	glClearColor(0.251, 0.643, 0.875, 1.0);
 
 	glShadeModel(GL_SMOOTH);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	// depth testing used on with less than testing
+	// testowanie glebi
 	glDepthFunc(GL_LESS);
 	glEnable(GL_DEPTH_TEST);
 
-	// setup  fog, but disable for now
+	// konfiguracja mgly
 	glDisable(GL_FOG);
 	glFogi(GL_FOG_MODE, GL_EXP);
-	GLfloat fogColor[4] = { 0.0f, 0.5f, 0.55f, 1.0f };
+	GLfloat fogColor[4] = { 0.0, 0.5, 0.55, 1.0f };
 	glFogfv(GL_FOG_COLOR, fogColor);
-	glFogf(GL_FOG_DENSITY, 0.0075);
+	glFogf(GL_FOG_DENSITY, 0.01);
 	glHint(GL_FOG_HINT, GL_NICEST);
 
-	// enable normalising of normals after scaling
+	// normalizacja
 	glEnable(GL_NORMALIZE);
 
-	// setup lighting, but disable for nwo
+	// konfiguracja oswietlenia
 	glDisable(GL_LIGHTING);
-	GLfloat ambient[] = { 0.1f, 0.1f, 0.1f, 1.0 };
+	GLfloat ambient[] = { 0.1, 0.1, 0.1, 1.0 };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
 
-	/*
-	* The actual lights are defined in the Scene class
-	*/
 
-	// set up line antialiasing
+
+	// antialiasing
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-	glLineWidth(1.0f);
+	glLineWidth(8.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	// setup backface culling
+	// konfiguracja backface culling
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
 
-	// choose nices perspective correction for textures
+	// korekcja perspektywy dla tekstur
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }

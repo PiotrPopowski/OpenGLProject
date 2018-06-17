@@ -1,52 +1,39 @@
-/*
-* StarFish class. Draws a yellowish colour StarFish.
-*
-* Igor Kromin 40125374
-*/
-
 #include "Renderable.h"
 
 using namespace std;
 
-// setup the static variables
-GLfloat StarFish::material[4] = {0.3f, 0.3f, 0.3f, 1.f};
+GLfloat StarFish::material[4] = { 0.3f, 0.3f, 0.3f, 1.f };
 GLfloat StarFish::shininess = 32.f;
 
 
-/// Default Constructor. Initialises defaults.
 StarFish::StarFish() : Renderable()
 {
-	cout << "-- Creating StarFish\n";
+	cout << "-- Generowanie rozgwiazdy\n";
 }
 
 
-/// Default destructor.
 StarFish::~StarFish()
 {
-	cout << "++ Destructing StarFish\n";
+	cout << "++ Usuwanie rozgwiazdy\n";
 }
 
 
-/// Draws the StarFish
 void StarFish::_draw(void)
 {
-	// set up the material properties (only front needs to be set)
 	glMaterialfv(GL_FRONT, GL_SPECULAR, material);
 	glMaterialf(GL_FRONT, GL_SHININESS, shininess);
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);
 
-	// set up vertex arrays
 	glVertexPointer(3, GL_FLOAT, 0, vertex);
 	glNormalPointer(GL_FLOAT, 0, normal);
 	glColorPointer(3, GL_FLOAT, 0, colours);
 
-	// enable vertex arrays
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 
-	// draw all legs
+	// rysowanie nog
 	GLfloat step = 360.0f / 5;
 	for (int i = 0; i < 5;  i++)
 	{
@@ -56,12 +43,10 @@ void StarFish::_draw(void)
 		glPopMatrix();
 	}
 
-	// disable vertex arrays
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 
-	// turn of colour material tracking
 	glDisable(GL_COLOR_MATERIAL);
 }
 

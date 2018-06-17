@@ -1,46 +1,36 @@
-/*
-* Quad class. Draws a yellowish colour quad.
-*
-* Igor Kromin 40125374
-*/
-
 #include "Renderable.h"
 
 using namespace std;
 
-// setup the static variables
 GLfloat Quad::material[4] = {1.f, 1.f, 1.f, 1.f};
 GLfloat Quad::shininess = 120.f;
 
 
-/// Default Constructor. Initialises defaults.
 Quad::Quad() : Renderable()
 {
-	cout << "-- Creating quad\n";
+	cout << "-- Tworzenie podloza\n";
 }
 
 
-/// Default destructor.
 Quad::~Quad()
 {
-	cout << "++ Destructing quad\n";
+	cout << "++ Usuwanie podloza\n";
 }
 
 
-/// Draws the quad
 void Quad::_draw(void)
 {
-	// set up the material properties (only front needs to be set)
+	// materialy
 	glMaterialfv(GL_FRONT, GL_AMBIENT, material);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, material);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, material);
 	glMaterialf(GL_FRONT, GL_SHININESS, shininess);
 
-	// enable texturing
+	// teksturowanie
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, FLOOR_TEXTURE);
 
-	// set up texture parameters
+	// wlasciwosci tekstury
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);

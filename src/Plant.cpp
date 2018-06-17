@@ -1,59 +1,38 @@
-/*
-* Plant class. Draws a plant.
-*
-* Igor Kromin 40125374
-*/
-
 #include "Renderable.h"
 
 using namespace std;
 
-// setup the static variables
 GLfloat Plant::material1[4] = {0.1f, 0.3f, 0.15f, 1.f};
 GLfloat Plant::material2[4] = {0.6f, 1.f, 0.8f, 1.f};
 GLfloat Plant::shininess = 100.f;
 
 
-/// Default Constructor. Initialises defaults.
 Plant::Plant() : Renderable()
 {
-	cout << "-- Creating Plant\n";
+	cout << "-- Generowanie rosliny\n";
 	build(dlist);
 }
 
 
-/// Default destructor.
 Plant::~Plant()
 {
-	cout << "++ Destructing Plant\n";
+	cout << "++ Usuwanie rosliny\n";
 }
 
 
-/// Draws the Plant
 void Plant::_draw(void)
 {
-	/*
-	* The materials are set in _draw_dlist() since that function
-	* is called eacht time to draw the display list version of the
-	* plant, this functin only gets used to build the display list
-	*/
-
-	// in the start we generate a plant with AT LEAST one branch
-	// so that we never get a situation where a plant is created
-	// with 0 branches
 	generate(0, Renderable::getRand(1, 6));
 }
 
 
-// Generates the plan. This really draws it, but the draw commands
-// are saved into the display list
+// generowanie rosliny. Roslina jest generowana z przynajmniej jedna galezia. Polecena rysowania znajduja sie w dlist
 void Plant::generate(int level, int number)
 {
-	// if we reached 5 levels of recursion, exit
-	// remember we start at level 0
+	// max 5
 	if (level == 5) return;
 
-	// each branch is abuout 3/4 of the size of the previous
+	// kazda kolejna galaz to 3/4 poprzedniej
 	GLfloat height = 3.0f / (0.75 * (level + 1.f));	
 	GLfloat bottom = 0.75f / pow(2, level);
 	GLfloat top = 0.75f / pow(2, (GLfloat)level + 1.f);
@@ -69,22 +48,20 @@ void Plant::generate(int level, int number)
 		glRotatef(horzAngle, 0.0f, 1.0f, 0.0f);
 		glRotatef(vertAngle, 1.0f, 0.0f, 0.0f);
 
-		// cap the bottom
+		// srodek
 		glFrontFace(GL_CW);
 		gluDisk(quadric, 0.0f, bottom, 8 - level, 1);
 		glFrontFace(GL_CCW);
 
-		// draw branch
+		// rysowanie galezi
 		gluCylinder(quadric, bottom, top, height, 8 - level, 1);
 		
-		// cap top
+		// wierzcholek
 		glTranslatef(0.0f, 0.0f, height);
 		gluDisk(quadric, 0.0f, top, 8 - level, 1);
 
-		// call this function again to generate more branches
-		// rotate back to 'normal' position first i.e. facing up
-		// this avoids branches looking down and going through
-		// the floor
+		// mozna wywolac wiecej razy, aby wygenerowac wiecej galezi, ale najpierw nalezy przywrocic pozycje 'normal'
+		//w celu unikniecia galezi opadajacych w dol
 		glRotatef(-vertAngle, 1.0f, 0.0f, 0.0f);
 		generate(level + 1, numChildren);
 		glPopMatrix();
@@ -92,10 +69,10 @@ void Plant::generate(int level, int number)
 }
 
 
-/// Draws the display list for the plant object
+/// tworzy dlist (liste polecen rysowania)
 void Plant::_draw_dlist(void)
 {
-	// set up the material properties (only front needs to be set)
+	// konfiguruje wlasciwosc materialu (nalezy ustawic tylko front)
 	glMaterialfv(GL_FRONT, GL_AMBIENT, material1);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, material1);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, material2);
