@@ -1,25 +1,4 @@
-/*
-*
-* THIS FILE HAS ALL OF THE HEADER INFORMATION FOR THE RENDERABLE OBJECT
-* AS WELL AS THE STONE, FISH, OCTOPUS, QUAD AND STARFISH.
-*
-* THE REASON FOR PUTTING IT ALL HERE IS BECAUSE THE SUBMIT SYSTEM ON THE
-* ITEE SERVERS ONLY ALLOWS TO SUBMIT 15 FILES AND IF I HAD SEPARATE FILES
-* FOR EACH OBJECT, THEN IT GET TO ABOUT 20 FILES.
-*
-* --Igor Kromin 40125374
-*
-*/
 
-/*
-* Renderable Class. This is an abstract class that all of the objects that
-* are attached to the scene inherit from. It provides basic functionality
-* for moving/rotating/scaling objects as well as defining a pure virtual
-* function '_draw()' that must be difined by its children classes which
-* actually does the drawing of any specific object.
-*
-* Igor Kromin 40125374
-*/
 #ifndef __RENDERABLE_3201
 #define __RENDERABLE_3201
 
@@ -38,70 +17,58 @@
 class Renderable
 {
 public:
-	GLfloat x;	/// x position of object
-	GLfloat y;	/// y position of object
-	GLfloat z;	/// z position of object
+	GLfloat x;	/// x obiektu
+	GLfloat y;	/// y obiektu
+	GLfloat z;	/// z obiektu
 
-	GLfloat rx;	/// x rotation angle of object
-	GLfloat ry;	/// y rotation angle of object
-	GLfloat rz;	/// z rotation angle of object
+	GLfloat rx;	/// x kat obrotu obiektu
+	GLfloat ry;	/// y kat obrotu obiektu
+	GLfloat rz;	/// z kat obrotu obiektu
 
-	GLfloat sx;	/// x scale of object
-	GLfloat sy;	/// y scale of object
-	GLfloat sz;	/// z scale of object
+	GLfloat sx;	/// x skala obiektu
+	GLfloat sy;	/// y skala obiektu
+	GLfloat sz;	/// z skala obiektu
 
-	bool isList;	/// is this a display list object?
+	bool isList;	
 
-	static unsigned int textures[2];	/// texture id array
-	static GLUquadricObj *quadric;	/// quadric object for all renderables
+	static unsigned int textures[2];	
+	static GLUquadricObj *quadric;	
 public:
-	Renderable();	/// default constructor
-	virtual ~Renderable();	/// default destructor
+	Renderable();	
+	virtual ~Renderable();	
 
-	void build(GLuint &dlist);	/// builds a display list of this object
-	void move(GLfloat x, GLfloat y, GLfloat z);	/// moves the object
-	void rotate(GLfloat x, GLfloat y, GLfloat z);	/// rotates the object
-	void scale(GLfloat x, GLfloat y, GLfloat z);	/// scales the object
+	void build(GLuint &dlist);	
+	void move(GLfloat x, GLfloat y, GLfloat z);	
+	void rotate(GLfloat x, GLfloat y, GLfloat z);	
+	void scale(GLfloat x, GLfloat y, GLfloat z);	
 	void draw(void);
 
-	static GLfloat getRand(GLfloat minimum, GLfloat range);	/// generates a random value in max range
+	static GLfloat getRand(GLfloat minimum, GLfloat range);
 protected:
-	virtual void _draw(void) = 0;	/// draws the object
-	virtual void _draw_dlist(void) {}	/// draws the display list for object
+	virtual void _draw(void) = 0;	
+	virtual void _draw_dlist(void) {}	
 };
 #endif
 
-
-/*
-* StarFish class. Draws a yellowish colour StarFish.
-*
-* Igor Kromin 40125374
-*/
 #ifndef __STARFISH_3201
 #define __STARFISH_3201
 class StarFish : public Renderable
 {
 private:
-	static GLfloat vertex[];	/// vertex array data
-	static GLfloat normal[];	/// normals for each vertex
-	static GLfloat colours[];	/// colour array data
+	static GLfloat vertex[];	
+	static GLfloat normal[];	
+	static GLfloat colours[];	
 	static GLfloat material[4];
 	static GLfloat shininess;
 public:
-	StarFish();	/// default constructor
-	virtual ~StarFish();	/// default destructor
+	StarFish();	
+	virtual ~StarFish();	
 
 protected:
-	void _draw(void);	/// draws the StarFish
+	void _draw(void);	
 };
 #endif
 
-
-/*
-* Fish class. Draws a Fish.
-*
-* Igor Kromin 40125374
-*/
 #ifndef __FISH_3201
 #define __FISH_3201
 class Fish : public Renderable
@@ -110,67 +77,41 @@ private:
 	GLfloat tailAngle;
 	GLfloat tailAngleCutOff;
 	GLfloat tailAngleInc;
-	static GLfloat vertex[];	/// vertex array data
-	static GLfloat normal[];	/// normals for each vertex
-	static GLfloat texels[]; /// texture coords for each vertex
-	static GLfloat colours[];	/// colour array data
+	static GLfloat vertex[];	
+	static GLfloat normal[];	
+	static GLfloat texels[]; 
+	static GLfloat colours[];	
 	static GLfloat material[4];
 	static GLfloat shininess;
 private:
-	void drawSide(void);	/// draws a side of the fish
+	void drawSide(void);	
 public:
-	Fish();	/// default constructor
-	virtual ~Fish();	/// default destructor
+	Fish();	
+	virtual ~Fish();	
 
 protected:
-	void _draw(void);	/// draws the Fish
+	void _draw(void);	
 };
 #endif
 
-
-/*
-* STONE class. Draws a pinky coloured STONE.
-*
-* Igor Kromin 40125374
-*/
 #ifndef __STONE_3201
 #define __STONE_3201
 class Stone : public Renderable
 {
 private:
-	GLuint dlist;	/// display list
+	GLuint dlist;	
 	static GLfloat material[4];
 	static GLfloat shininess;
-private:
-	static void drawLeg(void);	/// draws one leg
-	static void drawLeg(GLfloat jointAngle, GLfloat jointOffset);	/// draw leg with an angle specified
-	static void drawLegs(void);	/// draws complete set of legs
 public:
-	Stone();	/// default constructor
-	virtual ~Stone();	/// default destructor
+	Stone();	
+	virtual ~Stone();	
 protected:
-	void _draw(void);	/// draws the STONE
-	void _draw_dlist(void);	/// draws the STONE's display list
-	void generate(int level, int number);	/// generates the branches
+	void _draw(void);	
+	void _draw_dlist(void);	
 
 };
 #endif
 
-
-/*
-* Octopus class. Draws a Octopus.
-*
-* Igor Kromin 40125374
-*/
-
-
-
-
-/*
-* Quad class. Draws a yellowish colour shaded quad.
-*
-* Igor Kromin 40125374
-*/
 #ifndef __QUAD_3201
 #define __QUAD_3201
 class Quad : public Renderable
@@ -179,35 +120,29 @@ private:
 	static GLfloat material[4];
 	static GLfloat shininess;
 public:
-	Quad();	/// default constructor
-	virtual ~Quad();	/// default destructor
+	Quad();	
+	virtual ~Quad();	
 protected:
-	void _draw(void);	/// draws the quad
+	void _draw(void);	
 };
 #endif
 
-
-/*
-* Plant class. Draws a plant.
-*
-* Igor Kromin 40125374
-*/
 #ifndef __PLANT_3201
 #define __PLANT_3201
 #include <list>
 class Plant : public Renderable
 {
 private:
-	GLuint dlist;	/// display list
+	GLuint dlist;	
 	static GLfloat material1[4];
 	static GLfloat material2[4];
 	static GLfloat shininess;
 public:
-	Plant();	/// default constructor
-	virtual ~Plant();	/// default destructor
+	Plant();	
+	virtual ~Plant();	
 protected:
-	void _draw(void);	/// draws the plant
-	void generate(int level, int number);	/// generates the branches
-	void _draw_dlist(void);	/// draws the display list of this object
+	void _draw(void);	
+	void generate(int level, int number);	
+	void _draw_dlist(void);	
 };
 #endif

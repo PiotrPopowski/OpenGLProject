@@ -1,23 +1,12 @@
-/*
-* Renderable Class. This is an abstract class that all of the objects that
-* are attached to the scene inherit from. It provides basic functionality
-* for moving/rotating/scaling objects as well as defining a pure virtual
-* function '_draw()' that must be difined by its children classes which 
-* actually does the drawing of any specific object.
-*
-* Igor Kromin 40125374
-*/
-
 #include "Renderable.h"
 
-// create the static parts of all objects
+// statyczne czesci obiektow
 unsigned int Renderable::textures[2];
 GLUquadricObj *Renderable::quadric = gluNewQuadric();
 
 
-/// Default Constructor. Initialises the position to zero.
-/// The rotation around the Y axis is picked randomly to allow random
-/// spinning of objects. Display lists are off by default
+/// domyslnie: pozycja = 0, obrot w.o. Y = losowy, dlist = wylaczone
+
 Renderable::Renderable()
 {
 	this->x = 0.0f;
@@ -36,14 +25,12 @@ Renderable::Renderable()
 }
 
 
-/// Default Destructor. Does nothing.
 Renderable::~Renderable()
 {
-	// Nothing needs to be done here
 }
 
 
-/// Builds a display list of this object.
+/// budowanie dlist
 void Renderable::build(GLuint &dlist)
 {
 	dlist = glGenLists(1);
@@ -61,11 +48,7 @@ void Renderable::build(GLuint &dlist)
 }
 
 
-/// Moves the object
-/*
-* This method moves the object coordinates to the specified position along
-* the x, y and z axes.
-*/
+/// przesuwanie obiektu
 void Renderable::move(GLfloat x, GLfloat y, GLfloat z)
 {
 	this->x = x;
@@ -74,13 +57,7 @@ void Renderable::move(GLfloat x, GLfloat y, GLfloat z)
 }
 
 
-/// Rotates an object
-/*
-* This method rotates the object coordinates a specified number of degrees
-* around each of the x, y and z axes. All of the rotations are
-* performed around the point (1.0f, 1.0f, 1.0f) and happen in
-* the following manner: x-rot, y-rot, z-rot
-*/
+/// obracanie obiektu
 void Renderable::rotate(GLfloat x, GLfloat y, GLfloat z)
 {
 	this->rx = x;
@@ -89,7 +66,7 @@ void Renderable::rotate(GLfloat x, GLfloat y, GLfloat z)
 }
 
 
-/// Scales the object
+/// skalowanie obiektu
 void Renderable::scale(GLfloat x, GLfloat y, GLfloat z)
 {
 	this->sx = x;
@@ -98,17 +75,7 @@ void Renderable::scale(GLfloat x, GLfloat y, GLfloat z)
 }
 
 
-/// Draws the object
-/*
-* This method sets up the object ready for drawing by a concrete
-* class. Firstly all of the rotations are performed on the object,
-* then the translation is done, finally the _draw() method is
-* called to actually draw the object. Upon exit, the MODELVIEW
-* matrix is restored.
-*
-* If a display list has been built for this object, then it is
-* draw instead of re-drawing the object.
-*/
+/// przygotowywanie obiektu do rysowania (tworzenie dlist)
 void Renderable::draw(void)
 {
 	glPushMatrix();
@@ -121,9 +88,6 @@ void Renderable::draw(void)
 
 	glScalef(sx, sy, sz);
 
-	// if the object is flagged as a display list object, then call the
-	// display list drawing function of the object, otherwise just call
-	// the normal draw function of the object
 	if (this->isList)
 		_draw_dlist();
 	else
@@ -133,7 +97,7 @@ void Renderable::draw(void)
 }
 
 
-/// Generates a random value to use
+/// generowanie liczb
 GLfloat Renderable::getRand(GLfloat minimum, GLfloat range)
 {
 	return (((GLfloat)rand() / (GLfloat)RAND_MAX) * range) + minimum;
