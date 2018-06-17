@@ -256,8 +256,8 @@ void Scene::printMenu(void)
 	printGL(0.0f, 5.9f, -1.0f, "A/Z   - +/- kat widzenia          ");
 	printGL(0.0f, 6.2f, -1.0f, "GORA    - Zbliz                    ");
 	printGL(0.0f, 6.5f, -1.0f, "DOL  - Oddal                       ");
-	printGL(0.0f, 6.8f, -1.0f, "LEWO  - Obroc w prawo               ");
-	printGL(0.0f, 7.1f, -1.0f, "PRAWO - Obroc w lewo                 ");
+	printGL(0.0f, 6.8f, -1.0f, "LEWO  - Obroc w lewo               ");
+	printGL(0.0f, 7.1f, -1.0f, "PRAWO - Obroc w prawo                 ");
 
 	glColor3f(0.0f, 0.0f, 1.0f);
 	printGL(0.0f, 7.8f, -1.0f, "ESC   - Wyjscie                    ");

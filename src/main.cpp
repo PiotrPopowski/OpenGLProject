@@ -102,8 +102,6 @@ int main(int argc, char *argv[])
 		addObject(OBJ_FISH);
 		addObject(OBJ_FISH);
 		addObject(OBJ_PLANT);
-		addObject(OBJ_PLANT);
-		addObject(OBJ_PLANT);
 	}
 
 	// start the timer and enter the mail GLUT loop

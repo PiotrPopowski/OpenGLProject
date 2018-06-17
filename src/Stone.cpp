@@ -1,23 +1,18 @@
-/*
-* Crab class. Draws a pinky colour crab.
-*
-* Igor Kromin 40125374
-*/
-
 #include "Renderable.h"
 
 using namespace std;
 
 // setup the static variables
-GLfloat Stone::material[4] = {0.5f, 0.5f, 0.5f, 1.f};
-GLfloat Stone::shininess = 50.f;
+GLfloat Stone::material[4] = { 0.5f, 0.5f, 0.5f, 1.f };
+GLfloat Stone::shininess = 80.f;
 
 
 /// Default Constructor. Builds the display list for the crab.
 Stone::Stone() : Renderable()
 {
-	cout << "-- Creating crab\n";
-	sy = sx = sz = 2.f; // make crab twice as big
+	cout << "-- Creating stone\n";
+	sx = sz = 2.f; // make stone twice as big
+	sy = 0.5f;
 	build(dlist);
 }
 
@@ -39,12 +34,12 @@ void Stone::_draw(void)
 	*/
 
 	// get our pinky colour
-	glColor3f(0.502f, 0.502f, 0.502f);
+	glColor3f(0.502f, 0.502f, 0.520f);
 
 	// draw crab body (squashed along Y axis
 	glPushMatrix();
-	glScalef(.0f, 0.5f, 1.0f);
-	gluSphere(quadric, 0.3f, 16, 16);
+	glScalef(1.4f, 2.0f, 2.0f);
+	gluSphere(quadric, Renderable::getRand(0.1, 0.2), 10, 10);
 	glPopMatrix();
 
 
@@ -74,4 +69,3 @@ void Stone::_draw_dlist(void)
 
 
 
-	
