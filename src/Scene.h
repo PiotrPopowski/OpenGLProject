@@ -1,14 +1,3 @@
-/*
-* Scene class. This class takes care of drawing all of the contents
-* of our virtual aquarium as well as camera movement.
-*
-* This is a partial scene graph implementation where there is a list
-* of objects to draw, the class sets up the environment and calls the
-* draw method on each object in the queue.
-*
-* Igor Kromin 40125374
-*/
-
 #ifndef __SCENE_3201
 #define __SCENE_3201
 
@@ -33,19 +22,19 @@
 class Scene
 {
 private:
-	GLenum error;	/// current error
-	GLenum polygonModel;	/// polygon mode wire/solid
+	GLenum error;	
+	GLenum polygonModel;	
 
-	std::list<Renderable*> *elements;	/// list of elements
-	std::list<Renderable*>::iterator iter;	/// iterator for the elements
+	std::list<Renderable*> *elements;	
+	std::list<Renderable*>::iterator iter;	
 
-											/// light 0 data
+											
 	static GLfloat ambient0[4];
 	static GLfloat diffuse0[4];
 	static GLfloat specular0[4];
 	static GLfloat position0[4];
 
-	/// light 1 data
+
 	static GLfloat ambient1[4];
 	static GLfloat diffuse1[4];
 	static GLfloat specular1[4];
@@ -55,33 +44,31 @@ private:
 	static GLfloat spotAngle;
 
 public:
-	Camera camera;	/// camera (duh)
-	int objects[5];	/// counter for objects
-	bool perspectiveMode;	/// perspective on / off
-	bool showMenu;	/// show menu on / off
-	bool light0On;	/// light 0 on / off
-	bool light1On;	/// light 1 on / off
-	bool fogMode;	/// fog on / off
-	bool lightMode;	/// lighting on / off
+	Camera camera;	
+	int objects[5];	
+	bool perspectiveMode;	
+	bool showMenu;	
+	bool light0On;	
+	bool light1On;	
+	bool fogMode;	
+	bool lightMode;	
 
-	static int width;	/// the width of the window
-	static int height;	/// the height of the window
+	static int width;	
+	static int height;
 
 public:
-	Scene();	/// default constructor
-	virtual ~Scene();	/// default destructor
+	Scene();	
+	virtual ~Scene();	
 
-	bool render(void);	/// renders a frame
-	void add(Renderable *object);	/// add object to rendering queue
+	bool render(void);	
+	void add(Renderable *object);	
 
 private:
-	void clear(void);	/// clears the scene for drawing
+	void clear(void);	
 	void printGL(GLfloat x, GLfloat y, GLfloat z, const char *str, int count);
 	void printGL(GLfloat x, GLfloat y, GLfloat z, const char *str);
-	void printMenu(void);	/// display the menu
-	void drawHUD(void);	/// draw the heads up display
-	void distort(void);
-	void eval(int i, int j, GLfloat *ix, GLfloat *iy);
+	void printMenu(void);	
+	void drawHUD(void);	
 };
 
 #endif
