@@ -189,16 +189,18 @@ void Scene::printMenu(void)
 	printGL(0.0f, 2.6f, -1.0f, "F4    - Wygeneruj rozgwiazde          ");
 	printGL(0.0f, 2.9f, -1.0f, "F5    - Wygeneruj rybe              ");
 	printGL(0.0f, 3.2f, -1.0f, "F6    - Wygeneruj rosline             ");
-	printGL(0.0f, 3.5f, -1.0f, "A/Z   - +/- Nachylenie         ");
-	printGL(0.0f, 3.8f, -1.0f, "GORA    - Zbliz                    ");
-	printGL(0.0f, 4.1f, -1.0f, "DOL  - Oddal                       ");
-	printGL(0.0f, 4.3f, -1.0f, "LEWO  - Obroc w lewo               ");
+	printGL(0.0f, 3.5f, -1.0f, "A/Z   - +/- Nachylenie               ");
+	printGL(0.0f, 3.8f, -1.0f, "GORA  - Zbliz                         ");
+	printGL(0.0f, 4.1f, -1.0f, "DOL   - Oddal                         ");
+	printGL(0.0f, 4.3f, -1.0f, "LEWO  - Obroc w lewo                  ");
 	printGL(0.0f, 4.6f, -1.0f, "PRAWO - Obroc w prawo                 ");
+	printGL(0.0f, 4.9f, -1.0f, "R     - Resetuj kamere                ");
+
 
 	glColor3f(0.0f, 0.0f, 1.0f);
-	printGL(0.0f, 5.0f, -1.0f, "Underwater Scene by:             ");
-	printGL(0.0f, 5.3f, -1.0f, "Przemyslaw Plociennik();         ");
-	printGL(0.0f, 5.6f, -1.0f, "and Piotr Popowski();             ");
+	printGL(0.0f, 5.2f, -1.0f, "Underwater Scene by:             ");
+	printGL(0.0f, 5.5f, -1.0f, "Przemyslaw Plociennik();         ");
+	printGL(0.0f, 5.8f, -1.0f, "and Piotr Popowski();             ");
 
 	glColor3f(0.0f, 0.0f, 0.0f);
 	printGL(0.0f, 7.8f, -1.0f, "ESC   - Wyjscie                    ");

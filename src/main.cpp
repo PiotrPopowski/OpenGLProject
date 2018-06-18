@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 	}
 
 	// start animacji (rozpoczecie "wiecznej" petli programu
-	glutTimerFunc(50, animator, 0);
+	glutTimerFunc(25, animator, 0);
 	glutMainLoop();
 
 	return 0;
@@ -146,6 +146,11 @@ void keyboardInput(unsigned char key, int x, int y)
 	case 'A':
 	case 'a':
 		scene->camera.tiltdown();
+		break;
+
+	case 'R':
+	case 'r':
+		scene->camera.reset();
 		break;
 
 	case 'Z':
@@ -270,15 +275,8 @@ void setupViewVolume(void)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	if (scene->perspectiveMode == true)
 		gluPerspective(-45.0f, aspect, 1.0f, 250.0f);
-	else {
-	
-		if (aspect >= 1.0f)
-			glOrtho(-40.0f * aspect, 40.0f * aspect, -40.0f, 40.0f, 1.0f, 250.0f);
-		else
-			glOrtho(-40.0f, 40.0f, -40.0f * iaspect, 40.0f * iaspect, 1.0f, 250.0f);
-	}
+
 
 	glMatrixMode(GL_MODELVIEW);
 }
