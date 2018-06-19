@@ -182,22 +182,18 @@ void keyboardInput(int key, int x, int y)
 	switch (key)
 	{
 	case GLUT_KEY_F1:
-		scene->showMenu = !scene->showMenu;
-		break;
-
-	case GLUT_KEY_F2:
 		addObject(OBJ_STONE);
 		break;
 
-	case GLUT_KEY_F4:
+	case GLUT_KEY_F2:
 		addObject(OBJ_STARFISH);
 		break;
 
-	case GLUT_KEY_F5:
+	case GLUT_KEY_F3:
 		addObject(OBJ_FISH);
 		break;
 
-	case GLUT_KEY_F6:
+	case GLUT_KEY_F4:
 		addObject(OBJ_PLANT);
 		break;
 

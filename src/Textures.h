@@ -3,10 +3,6 @@
 
 static GLubyte water[64 * 64 * 4];
 
-/*
-* Tekstura piasku pobrana z:
-* http://www.itee.uq.edu.au/~comp3201/sandtex.h
-*/
 static const struct {
   unsigned int 	 width;
   unsigned int 	 height;

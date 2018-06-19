@@ -1,0 +1,14 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: Katalog pośredni (Debug\) zawiera pliki udostępnione z innego projektu (grk-cw4.vcxproj). Może to spowodować niepoprawne zachowanie podczas oczyszczania i ponownej kompilacji.
+  Pomijanie... (nie wykryto odpowiednich zmian)
+  StarFish.cpp
+  Scene.cpp
+  Renderable.cpp
+  Quad.cpp
+  Plant.cpp
+  main.cpp
+  Fish.cpp
+  Stone.cpp
+  Camera.cpp
+Camera.obj : warning LNK4075: zignorowano opcję „/EDITANDCONTINUE” z powodu określenia opcji „/INCREMENTAL:NO”
+  grk-cw4.vcxproj -> C:\Users\Win10\Desktop\Nowy folder (2)\OpenGLProject\Debug\GRK Projekt.exe
+  grk-cw4.vcxproj -> C:\Users\Win10\Desktop\Nowy folder (2)\OpenGLProject\Debug\GRK Projekt.pdb (Partial PDB)
