@@ -329,7 +329,7 @@ void setupGL(void)
 	cout << "-- Konfiguracja OpenGL\n";
 
 	// kolor tla
-	glClearColor(0.251, 0.643, 0.875, 1.0);
+	glClearColor(0.373, 0.620, 0.627, 1.0);
 
 	glShadeModel(GL_SMOOTH);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
