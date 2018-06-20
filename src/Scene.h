@@ -12,7 +12,6 @@
 #include "Camera.h"
 
 #define OBJ_STONE 0
-#define OBJ_OCTOPUS 1
 #define OBJ_STARFISH 2
 #define OBJ_FISH 3
 #define OBJ_PLANT 4

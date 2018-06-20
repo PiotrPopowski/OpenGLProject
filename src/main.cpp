@@ -137,12 +137,6 @@ void keyboardInput(unsigned char key, int x, int y)
 		exit(0);
 		break;
 
-	case ' ':	
-		flatShading = !flatShading;
-		if (flatShading) glShadeModel(GL_FLAT);
-		else glShadeModel(GL_SMOOTH);
-		break;
-
 	case 'A':
 	case 'a':
 		scene->camera.tiltdown();

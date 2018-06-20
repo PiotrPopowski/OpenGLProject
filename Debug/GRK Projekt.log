@@ -1,17 +1,24 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: Katalog pośredni (Debug\) zawiera pliki udostępnione z innego projektu (grk-cw4.vcxproj). Może to spowodować niepoprawne zachowanie podczas oczyszczania i ponownej kompilacji.
   main.cpp
 c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(38): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
-c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(332): warning C4305: "argument": obcięcie z "double" do "GLclampf"
-c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(344): warning C4838: konwersja z „double” do „GLfloat” wymaga konwersji zawężającej
-c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(344): warning C4305: "inicjowanie": obcięcie z "double" do "GLfloat"
-c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(346): warning C4305: "argument": obcięcie z "double" do "GLfloat"
-c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(354): warning C4838: konwersja z „double” do „GLfloat” wymaga konwersji zawężającej
-c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(354): warning C4305: "inicjowanie": obcięcie z "double" do "GLfloat"
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(326): warning C4305: "argument": obcięcie z "double" do "GLclampf"
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(338): warning C4838: konwersja z „double” do „GLfloat” wymaga konwersji zawężającej
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(338): warning C4305: "inicjowanie": obcięcie z "double" do "GLfloat"
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(340): warning C4305: "argument": obcięcie z "double" do "GLfloat"
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(348): warning C4838: konwersja z „double” do „GLfloat” wymaga konwersji zawężającej
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\main.cpp(348): warning C4305: "inicjowanie": obcięcie z "double" do "GLfloat"
+  Scene.cpp
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\scene.cpp(10): warning C4838: konwersja z „double” do „GLfloat” wymaga konwersji zawężającej
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\scene.cpp(10): warning C4305: "inicjowanie": obcięcie z "double" do "GLfloat"
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\scene.cpp(11): warning C4838: konwersja z „double” do „GLfloat” wymaga konwersji zawężającej
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\scene.cpp(11): warning C4305: "inicjowanie": obcięcie z "double" do "GLfloat"
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\scene.cpp(136): warning C4305: "argument": obcięcie z "double" do "GLfloat"
+c:\users\win10\desktop\nowy folder (2)\openglproject\src\scene.cpp(165): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\stdio.h(1772): note: zobacz deklarację „sprintf”
   Generowanie kodu...
   Pomijanie... (nie wykryto odpowiednich zmian)
   Stone.cpp
   StarFish.cpp
-  Scene.cpp
   Renderable.cpp
   Quad.cpp
   Plant.cpp
