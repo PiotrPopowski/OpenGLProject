@@ -1,22 +1,25 @@
-using UnityEngine;
-using System.Collections;
+/* Efekt "Caustics", dopracujemy jesli wystarczy czasu */
+//potrzebne klasy z UnityEngine i tekstury do animacji
 
-public class AnimatedProjector : MonoBehaviour
-{
-	public float fps = 30.0f;
-	public Texture2D[] frames;
-	private int frameIndex;
-	private Projector projector;
+//using UnityEngine;
+//using System.Collections;
 
-	void Start()
-	{
-		projector = GetComponent();
-		InvokeRepeating("NextFrame", 0, 1 / fps);
-	}
+//public class AnimatedProjector : MonoBehaviour
+//{
+//	public float fps = 30.0f;
+//	public Texture2D[] frames;
+//	private int frameIndex;
+//	private Projector projector;
 
-	void NextFrame()
-	{
-		projector.material.SetTexture("_MainTex", frames[frameIndex]);
-		frameIndex = (frameIndex + 1) % frames.Length;
-	}
-}
+//	void Start()
+//	{
+//		projector = GetComponent();
+//		InvokeRepeating("NextFrame", 0, 1 / fps);
+//	}
+
+//	void NextFrame()
+//	{
+//		projector.material.SetTexture("_MainTex", frames[frameIndex]);
+//		frameIndex = (frameIndex + 1) % frames.Length;
+//	}
+//}
