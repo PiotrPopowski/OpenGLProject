@@ -28,7 +28,7 @@ Scene::Scene()
 
 	error = GL_NO_ERROR;
 	polygonModel = GL_FILL;
-	elements = new std::list<Renderable*>;	// tworzenie kolejki
+	elements = new std::list<Renderable*>;	// tworzenie listy
 	showMenu = true;	
 	light0On = false;	
 	light1On = true;	
@@ -60,7 +60,7 @@ Scene::~Scene()
 }
 
 
-/// generuje pojedyncza klatka
+/// generuje pojedyncza klatke
 bool Scene::render(void)
 {
 	GLenum error;
@@ -117,7 +117,7 @@ void Scene::drawHUD(void)
 {
 	glDisable(GL_DEPTH_TEST);
 
-	// wylacza ie oswietlenia
+	// wylaczanie oswietlenia
 	GLboolean lightsOn;
 	glGetBooleanv(GL_LIGHTING, &lightsOn);
 	glDisable(GL_LIGHTING);
@@ -171,7 +171,7 @@ void Scene::printGL(GLfloat x, GLfloat y, GLfloat z, const char *str)
 {
 	glRasterPos3f(x, y, z);
 
-	// print character one by one
+	// wypisuje znaki jeden po drugim
 	for (int j = 0; j < 30; j++) {
 		int c = str[j];
 		glutBitmapCharacter(GLUT_BITMAP_8_BY_13, c);
@@ -185,10 +185,10 @@ void Scene::printMenu(void)
 	printGL(0.0f, 1.7f, -1.0f, "---[ Klawiszologia ]------------");
 
 	glColor3f(0.0f, 1.0f, 0.0f);
-	printGL(0.0f, 2.3f, -1.0f, "F2    - Wygeneruj kamien             ");
-	printGL(0.0f, 2.6f, -1.0f, "F4    - Wygeneruj rozgwiazde          ");
-	printGL(0.0f, 2.9f, -1.0f, "F5    - Wygeneruj rybe              ");
-	printGL(0.0f, 3.2f, -1.0f, "F6    - Wygeneruj rosline             ");
+	printGL(0.0f, 2.3f, -1.0f, "F1    - Wygeneruj kamien             ");
+	printGL(0.0f, 2.6f, -1.0f, "F2    - Wygeneruj rozgwiazde          ");
+	printGL(0.0f, 2.9f, -1.0f, "F3    - Wygeneruj rybe              ");
+	printGL(0.0f, 3.2f, -1.0f, "F4    - Wygeneruj rosline             ");
 	printGL(0.0f, 3.5f, -1.0f, "A/Z   - +/- Nachylenie               ");
 	printGL(0.0f, 3.8f, -1.0f, "GORA  - Zbliz                         ");
 	printGL(0.0f, 4.1f, -1.0f, "DOL   - Oddal                         ");

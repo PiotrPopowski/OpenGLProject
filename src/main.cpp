@@ -137,12 +137,6 @@ void keyboardInput(unsigned char key, int x, int y)
 		exit(0);
 		break;
 
-	case ' ':	
-		flatShading = !flatShading;
-		if (flatShading) glShadeModel(GL_FLAT);
-		else glShadeModel(GL_SMOOTH);
-		break;
-
 	case 'A':
 	case 'a':
 		scene->camera.tiltdown();
@@ -182,22 +176,18 @@ void keyboardInput(int key, int x, int y)
 	switch (key)
 	{
 	case GLUT_KEY_F1:
-		scene->showMenu = !scene->showMenu;
-		break;
-
-	case GLUT_KEY_F2:
 		addObject(OBJ_STONE);
 		break;
 
-	case GLUT_KEY_F4:
+	case GLUT_KEY_F2:
 		addObject(OBJ_STARFISH);
 		break;
 
-	case GLUT_KEY_F5:
+	case GLUT_KEY_F3:
 		addObject(OBJ_FISH);
 		break;
 
-	case GLUT_KEY_F6:
+	case GLUT_KEY_F4:
 		addObject(OBJ_PLANT);
 		break;
 
@@ -333,7 +323,7 @@ void setupGL(void)
 	cout << "-- Konfiguracja OpenGL\n";
 
 	// kolor tla
-	glClearColor(0.251, 0.643, 0.875, 1.0);
+	glClearColor(0.373, 0.620, 0.627, 1.0);
 
 	glShadeModel(GL_SMOOTH);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
